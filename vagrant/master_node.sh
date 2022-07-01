@@ -33,8 +33,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 # You should now deploy a Pod network to the cluster
 # with one of the options listed  at: /docs/concepts/cluster-administration/addons/
-# kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
-kubectl create -f $HOME/workspace/k8s/vagrant/tigera-operator.yaml
+kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
 kubectl create -f $HOME/workspace/k8s/vagrant/calico-config.yaml
 
 #==============#
