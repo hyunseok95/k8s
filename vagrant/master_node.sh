@@ -8,7 +8,7 @@
 mkdir $HOME/workspace
 
 # git clone k8s.git
-git clone https://github.com/kotype-git/k8s.git
+git clone https://github.com/hyunseok95/k8s.git
 mv /home/vagrant/k8s $HOME/workspace
 find $HOME/workspace/k8s/ -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 
