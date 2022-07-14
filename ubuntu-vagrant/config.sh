@@ -5,9 +5,7 @@ sudo sed -i.bak -re "s/([a-z]{2}.)?archive.ubuntu.com|security.ubuntu.com/mirror
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Allow PasswordAuthentication and Permit root login
-#echo -e 'root\nroot\n' | sudo passwd root
 sudo sed -i.bak -r 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-#sed -i.bak -r 's/PermitRootLogin prohibit-password/PermitRootLogin prohibit-password\nPermitRootLogin yes/' /etc/ssh/sshd_config
 service ssh restart
 service sshd restart
 
@@ -39,8 +37,8 @@ EOF
 sudo sysctl --system
 
 # local small dns & vagrant cannot parse and delivery shell code.
-echo "10.253.26.1 k8s-control-plane" >> /etc/hosts
-for (( i=1; i<=$1; i++  )); do echo "10.253.26.10$i k8s-node-$i" >> /etc/hosts; done
+echo "192.168.1.1 Control-Plane" >> /etc/hosts
+for (( i=1; i<=$1; i++  )); do echo "192.168.1.1$i Node-$i" >> /etc/hosts; done
 
 # config DNS
 cat <<EOF > /etc/resolv.conf

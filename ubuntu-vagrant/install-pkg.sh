@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Update the apt package index and install util
-apt-get update
-apt-get install -y \
+sudo apt-get update
+sudo apt-get install -y \
 vim \
 git-all \
 sshpass \
@@ -10,8 +10,8 @@ nfs-kernel-server \
 nfs-common
 
 # Update the apt package index and install packages to allow apt to use a repository over HTTPS
-apt-get update
-apt-get install -y ca-certificates curl gnupg lsb-release apt-transport-https
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg lsb-release apt-transport-https
 
 
 #===============================#
@@ -19,21 +19,21 @@ apt-get install -y ca-certificates curl gnupg lsb-release apt-transport-https
 #===============================#
 
 # Uninstall old versions of Docker
-apt-get remove -y docker docker-engine docker.io containerd runc
+sudo apt-get remove -y docker docker-engine docker.io containerd runc
 
 # Add Docker’s official GPG key
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Use the following command to set up the repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install Docker Engine
-apt-get update
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-apt-mark hold docker-ce docker-ce-cli containerd.io docker-compose-plugin
-systemctl enable --now docker
-systemctl enable --now containerd
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-mark hold docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo systemctl enable --now docker
+sudo systemctl enable --now containerd
 
 # Changing the settings such that docker use systemd as the cgroup driver
 cat > /etc/docker/daemon.json <<EOF
@@ -64,7 +64,7 @@ systemctl restart containerd
 curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
 # Add the Kubernetes apt repository
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 # Update apt package index, install kubelet, kubeadm and kubectl, and pin their version
 apt-get update

@@ -18,9 +18,9 @@ find $HOME/workspace/k8s/ -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 
 # The control-plane node is the machine where the control plane components run, including etcd (the cluster database)
 # and the API Server (which the kubectl command line tool communicates with).
-kubeadm init \
---control-plane-endpoint 192.168.56.100 \
---apiserver-advertise-address 192.168.56.100 \
+sudo kubeadm init \
+--control-plane-endpoint 192.168.56.1 \
+--apiserver-advertise-address 192.168.56.1 \
 --pod-network-cidr 172.16.0.0/16 \
 --token 123456.1234567890123456 \
 --token-ttl 0
@@ -28,13 +28,13 @@ kubeadm init \
 # config for master node only
 # To make kubectl work for your non-root user, run these commands
 mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # You should now deploy a Pod network to the cluster
 # with one of the options listed  at: /docs/concepts/cluster-administration/addons/
 kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
-kubectl create -f $HOME/workspace/k8s/vagrant/calico-config.yaml
+kubectl create -f $HOME/hyunseok/workspace/kubernetes/k8s/window-vagrant/calico-config.yaml
 
 #==============#
 # Install Helm #
