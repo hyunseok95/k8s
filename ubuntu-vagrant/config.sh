@@ -37,7 +37,7 @@ EOF
 sudo sysctl --system
 
 # local small dns & vagrant cannot parse and delivery shell code.
-echo "192.168.1.1 Control-Plane" >> /etc/hosts
+echo "192.168.1.10 Control-Plane" >> /etc/hosts
 for (( i=1; i<=$1; i++  )); do echo "192.168.1.1$i Node-$i" >> /etc/hosts; done
 
 # config DNS

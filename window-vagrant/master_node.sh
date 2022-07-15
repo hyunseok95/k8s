@@ -18,9 +18,9 @@ find $HOME/workspace/k8s/ -regex ".*\.\(sh\)" -exec chmod 700 {} \;
 
 # The control-plane node is the machine where the control plane components run, including etcd (the cluster database)
 # and the API Server (which the kubectl command line tool communicates with).
+#--apiserver-advertise-address 192.168.1.1 \
 sudo kubeadm init \
---control-plane-endpoint 192.168.56.1 \
---apiserver-advertise-address 192.168.56.1 \
+--control-plane-endpoint 192.168.1.10 \
 --pod-network-cidr 172.16.0.0/16 \
 --token 123456.1234567890123456 \
 --token-ttl 0

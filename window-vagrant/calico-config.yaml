@@ -7,6 +7,8 @@ metadata:
 spec:
   # Configures Calico networking.
   calicoNetwork:
+    # enable bgp daemon
+    bgp: Enabled
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
     - blockSize: 26
@@ -14,6 +16,10 @@ spec:
       encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
       nodeSelector: all()
+    # config cidrs between node
+    nodeAddressAutodetectionV4:
+      cidrs:
+        - 192.168.1.0/24
   # control-plane select
   controlPlaneNodeSelector:
     kubernetes.io/hostname: "control-plane"
